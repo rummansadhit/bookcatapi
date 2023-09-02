@@ -2,12 +2,12 @@ import express from 'express';
 import * as categoryController from '../controllers/categoryController';
 import { verifyToken } from '../middlewares/verifytokenMiddlewares';
 import { adminMiddleware } from '../middlewares/adminMiddlewares';
-const router = express.Router();
+const categoryRoutes = express.Router();
 
-router.post('/create-category', verifyToken, adminMiddleware,categoryController.createCategory);
-router.get('/', categoryController.getAllCategories);
-router.get('/:id', categoryController.getSingleCategory);
-router.patch('/:id',verifyToken, adminMiddleware, categoryController.updateCategory);
-router.delete('/:id', verifyToken, adminMiddleware,categoryController.deleteCategory);
+categoryRoutes.post('/create-category', verifyToken, adminMiddleware,categoryController.createCategory);
+categoryRoutes.get('/', categoryController.getAllCategories);
+categoryRoutes.get('/:id', categoryController.getSingleCategory);
+categoryRoutes.patch('/:id',verifyToken, adminMiddleware, categoryController.updateCategory);
+categoryRoutes.delete('/:id', verifyToken, adminMiddleware,categoryController.deleteCategory);
 
-export default router;
+export default categoryRoutes;

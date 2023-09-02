@@ -2,6 +2,18 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+
+interface BookFilters {
+  page?: number;
+  size?: number;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+  minPrice?: number;
+  maxPrice?: number;
+  category?: string;
+  search?: string;
+}
+
 export const createBook = async (bookData: any) => {
   return await prisma.book.create({
     data: bookData,
@@ -43,3 +55,53 @@ export const deleteBook = async (id: string) => {
     where: { id: id },
   });
 };
+
+
+export  const fetchBooks = async (filters: BookFilters) => {
+  // Default values
+  const page = filters.page || 1;
+  const size = filters.size || 10;
+
+  // Create search filters
+  const searchFilters: any = {};
+
+  if (filters.minPrice) searchFilters.price = { gte: filters.minPrice };
+  if (filters.maxPrice) searchFilters.price = { ...searchFilters.price, lte: filters.maxPrice };
+  if (filters.category) searchFilters.categoryId = filters.category;
+
+  // Handle search query
+  if (filters.search) {
+      searchFilters.OR = [
+          { title: { contains: filters.search, mode: 'insensitive' } },
+          { author: { contains: filters.search, mode: 'insensitive' } },
+          { genre: { contains: filters.search, mode: 'insensitive' } }
+      ];
+  }
+
+  // Fetch books
+  const books = await prisma.book.findMany({
+      where: searchFilters,
+      skip: (page - 1) * size,
+      take: size,
+      orderBy: {
+          [filters.sortBy || 'title']: filters.sortOrder || 'asc'
+      }
+  });
+
+  // Calculate total books and total pages
+  const totalBooks = await prisma.book.count({ where: searchFilters });
+  const totalPages = Math.ceil(totalBooks / size);
+
+  return {
+      success: true,
+      statusCode: 200,
+      message: "Books fetched successfully",
+      meta: {
+          page,
+          size,
+          total: totalBooks,
+          totalPage: totalPages
+      },
+      data: books
+  };
+}

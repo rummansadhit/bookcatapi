@@ -12,17 +12,39 @@ export const createBook = async (req: Request, res: Response) => {
   });
 };
 
-export const getAllBooks = async (req: Request, res: Response) => {
-  // TODO: Implement pagination and other query parameters logic
-  const books = await bookService.getAllBooks();
-  res.status(200).json({
-    success: true,
-    statusCode: 200,
-    message: "Books fetched successfully",
-    data: books,
-  });
-};
+export async function getAllBooks(req: Request, res: Response): Promise<void> {
+  try {
+      const {
+          page,
+          size,
+          sortBy,
+          sortOrder,
+          minPrice,
+          maxPrice,
+          category,
+          search
+      } = req.query;
 
+      const booksData = await bookService.fetchBooks({
+          page: Number(page),
+          size: Number(size),
+          sortBy: String(sortBy),
+          sortOrder: sortOrder === 'asc' ? 'asc' : 'desc',
+          minPrice: Number(minPrice),
+          maxPrice: Number(maxPrice),
+          category: String(category),
+          search: String(search)
+      });
+
+      res.json(booksData);
+
+  } catch (error) {
+      res.status(500).json({
+          success: false,
+          message: "Internal Error"
+      });
+  }
+}
 
 export const getBookById = async (req: Request, res: Response) => {
     try {
