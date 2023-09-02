@@ -8,6 +8,7 @@
   "private": null,
   "dependencies": {
     "@prisma/client": "^5.2.0",
+    "cors": "^2.8.5",
     "prisma": "^5.2.0"
   }
 }
