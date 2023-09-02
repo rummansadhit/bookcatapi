@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 
-export const createUser = async (userData) => {
+export const createUser = async (userData: any) => {
     return await prisma.user.create({ data: userData });
 };
 
@@ -17,7 +17,7 @@ export const getSingleUser = async (id: string) => {
     return await prisma.user.findUnique({ where: { id: id } });
 };
 
-export const updateUser = async (id: string, userData) => {
+export const updateUser = async (id: string, userData:any) => {
     return await prisma.user.update({ where: { id: id }, data: userData });
 };
 

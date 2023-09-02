@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export const createBook = async (bookData) => {
+export const createBook = async (bookData: any) => {
   return await prisma.book.create({
     data: bookData,
     include: {
@@ -28,7 +28,7 @@ export const getBookById = async (id: string) => {
   });
 };
 
-export const updateBook = async (id: string, bookData) => {
+export const updateBook = async (id: string, bookData: any) => {
   return await prisma.book.update({
     where: { id: id },
     data: bookData,

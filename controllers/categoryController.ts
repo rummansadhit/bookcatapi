@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as categoryService from '../services/categoryService';
 
+
 export const createCategory = async (req: Request, res: Response) => {
     try {
         const category = await categoryService.createCategory(req.body);
@@ -10,8 +11,8 @@ export const createCategory = async (req: Request, res: Response) => {
             message: 'Category created successfully',
             data: category
         });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+    } catch (error: any) {
+        res.status(500).json({ error: error.message});
     }
 };
 
@@ -24,7 +25,7 @@ export const getAllCategories = async (req: Request, res: Response) => {
             message: 'Categories fetched successfully',
             data: categories
         });
-    } catch (error) {
+    } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
 };
@@ -38,7 +39,7 @@ export const getSingleCategory = async (req: Request, res: Response) => {
             message: 'Category fetched successfully',
             data: category
         });
-    } catch (error) {
+    } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
 };
@@ -52,7 +53,7 @@ export const updateCategory = async (req: Request, res: Response) => {
             message: 'Category updated successfully',
             data: category
         });
-    } catch (error) {
+    } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
 };
@@ -66,7 +67,7 @@ export const deleteCategory = async (req: Request, res: Response) => {
             message: 'Category deleted successfully',
             data: category
         });
-    } catch (error) {
+    } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
 };

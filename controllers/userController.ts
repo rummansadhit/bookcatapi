@@ -5,9 +5,18 @@ import * as userService from '../services/userServices';
 export const signUp = async (req: Request, res: Response) => {
     try {
         const user = await userService.createUser(req.body);
-        res.json({  });
+        res.json({ 
+            success: true,
+            statusCode: 200,
+            message: 'User created successfully!',
+            data: user
+         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({
+            success: false,
+            statusCode: 500,
+            message: 'Server error',
+          });
     }
 };
 
@@ -22,7 +31,11 @@ export const getAllUsers = async (req: Request, res: Response) => {
             data: users
         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({
+            success: false,
+            statusCode: 500,
+            message: 'Server error',
+          });
     }
 };
 
@@ -36,7 +49,11 @@ export const getSingleUser = async (req: Request, res: Response) => {
             data: user
         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({
+            success: false,
+            statusCode: 500,
+            message: 'Server error',
+          });
     }
 };
 
@@ -50,7 +67,11 @@ export const updateUser = async (req: Request, res: Response) => {
             data: user
         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({
+            success: false,
+            statusCode: 500,
+            message: 'Server error',
+          });
     }
 };
 
@@ -64,6 +85,10 @@ export const deleteUser = async (req: Request, res: Response) => {
             data: user
         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json( {
+            success: false,
+            statusCode: 500,
+            message: 'Server error',
+          } );
     }
 };
