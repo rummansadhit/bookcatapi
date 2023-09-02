@@ -1,0 +1,71 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  admin
+  customer
+}
+
+enum OrderStatus {
+  pending
+  shipped
+  delivered
+}
+
+model User {
+  id          String       @id @default(uuid())
+  name        String
+  email       String       @unique
+  password    String
+  role        UserRole     @default(customer)
+  contactNo   String
+  address     String
+  profileImg  String?
+  orders      Order[]
+  reviews     ReviewAndRating[]
+}
+
+model Category {
+  id     String @id @default(uuid())
+  title  String
+  books  Book[]
+}
+
+model Book {
+  id              String           @id @default(uuid())
+  title           String
+  author          String
+  price           Float
+  genre           String
+  publicationDate DateTime
+  categoryId      String
+  category        Category         @relation(fields: [categoryId], references: [id])
+  reviews         ReviewAndRating[]
+}
+
+model ReviewAndRating {
+  id     String @id @default(uuid())
+  review String
+  rating Int
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  bookId String
+  book   Book   @relation(fields: [bookId], references: [id])
+}
+
+model Order {
+  id          String       @id @default(uuid())
+  userId      String
+  user        User         @relation(fields: [userId], references: [id])
+  orderedBooks Json
+  status      OrderStatus  @default(pending)
+  createdAt   DateTime     @default(now())
+}
