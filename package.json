@@ -5,5 +5,8 @@
   "repository": "https://github.com/rummansadhit/bookcatapi.git",
   "author": "Rumman <rummansadhit@gmail.com>",
   "license": "MIT",
-  "private": null
+  "private": null,
+  "dependencies": {
+    "prisma": "^5.2.0"
+  }
 }
