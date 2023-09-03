@@ -4,9 +4,9 @@ import * as bookService from '../services/bookService';
 export const createBook = async (req: Request, res: Response) => {
   // TODO: Check if the user is an admin
   const book = await bookService.createBook(req.body);
-  res.status(201).json({
+  res.status(200).json({
     success: true,
-    statusCode: 201,
+    statusCode: 200,
     message: "Book created successfully",
     data: book,
   });
