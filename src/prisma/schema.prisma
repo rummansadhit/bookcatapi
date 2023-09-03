@@ -6,7 +6,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = process.env("DATABASE_URL")
+  url      = "postgres://bookcat_user:DFJMlKDSIZwU1OqmkIpMbgBFQaIVsnHK@dpg-cjq342u1208c73fg8tvg-a.oregon-postgres.render.com/bookcat"
 }
 
 enum UserRole {
