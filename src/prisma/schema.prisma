@@ -2,12 +2,12 @@
 
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native","debian-openssl-1.1.x"]
+ 
 }
 
 datasource db {
   provider = "postgresql"
-  url      = "postgres://bookcat_user:DFJMlKDSIZwU1OqmkIpMbgBFQaIVsnHK@dpg-cjq342u1208c73fg8tvg-a.oregon-postgres.render.com/bookcat"
+  url      = env("DATABASE_URL")
 }
 
 enum UserRole {
