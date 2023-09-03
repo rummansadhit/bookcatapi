@@ -25,15 +25,28 @@ export async function getAllBooks(req: Request, res: Response): Promise<void> {
           search
       } = req.query;
 
+      console.log(req.query);
+      let bookOrder: bookService.SortOrder;
+      if(sortOrder === 'asc') {
+        bookOrder = bookService.SortOrder.ASC;
+
+      }
+      else if(sortOrder === 'desc') {
+        bookOrder = bookService.SortOrder.DESC;
+      }
+      else {
+        bookOrder = bookService.SortOrder.ASC;
+      }
+
       const booksData = await bookService.fetchBooks({
-          page: Number(page),
-          size: Number(size),
-          sortBy: String(sortBy),
-          sortOrder: sortOrder === 'asc' ? 'asc' : 'desc',
-          minPrice: Number(minPrice),
-          maxPrice: Number(maxPrice),
-          category: String(category),
-          search: String(search)
+          page: page===undefined ? undefined : Number(page),
+          size: size===undefined ? undefined : Number(size),
+          sortBy: sortBy===undefined ? undefined : String(sortBy),
+          sortOrder: bookOrder,
+          minPrice: maxPrice===undefined ? undefined : Number(minPrice),
+          maxPrice: maxPrice===undefined ? undefined : Number(maxPrice),
+          category: category===undefined ? undefined : String(category),
+          search: search===undefined ? undefined : String(search)
       });
 
       res.json(booksData);

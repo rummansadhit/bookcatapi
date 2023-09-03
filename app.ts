@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/books', bookRoutes);
-//app.use('/api/v1/categories', categoryRoutes);
+app.use('/api/v1/categories', categoryRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => {
