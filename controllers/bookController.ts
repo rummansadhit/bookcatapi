@@ -143,7 +143,7 @@ export const getBookById = async (req: Request, res: Response) => {
 
 import { fetchBooksByCategory } from '../services/bookService';
 
-export const getBooksByCategoryId = async (req, res) => {
+export const getBooksByCategoryId = async (req: Request, res: Response) => {
     try {
         const categoryId = req.params.categoryId;
         const { page = 1, size = 10 } = req.query;

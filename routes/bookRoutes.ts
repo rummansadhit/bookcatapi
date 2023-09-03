@@ -6,7 +6,7 @@ import { adminMiddleware } from '../middlewares/adminMiddlewares';
 const bookRoutes = express.Router();
 
 bookRoutes.post('/create-book', verifyToken, adminMiddleware, bookController.createBook);
-bookRoutes.get('/api/v1/books/:categoryId/category', bookController.getBooksByCategoryId); 
+bookRoutes.get('/:categoryId/category', bookController.getBooksByCategoryId); 
 bookRoutes.get('/', bookController.getAllBooks);
 bookRoutes.get('/:id', bookController.getBookById);
 bookRoutes.patch('/:id', verifyToken, adminMiddleware, bookController.updateBook);
