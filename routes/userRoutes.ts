@@ -6,7 +6,7 @@ import { adminMiddleware } from '../middlewares/adminMiddlewares';
 const userRoutes = express.Router();
 
 
-userRoutes.get('/', userController.getAllUsers);
+userRoutes.get('/',verifyToken, adminMiddleware, userController.getAllUsers);
 userRoutes.get('/:id', verifyToken, adminMiddleware,userController.getSingleUser);
 userRoutes.patch('/:id', verifyToken, adminMiddleware,userController.updateUser);
 userRoutes.delete('/:id',verifyToken, adminMiddleware, userController.deleteUser); 

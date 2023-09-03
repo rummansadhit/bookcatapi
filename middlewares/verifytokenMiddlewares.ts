@@ -7,7 +7,7 @@ declare global {
     namespace Express {
       interface Request {
         user?: {
-          userId: string;
+            id: string;
           role: string;
         };
       }
@@ -26,8 +26,9 @@ export function verifyToken(req: Request, res: Response, next: NextFunction) {
         const decoded:any = jwt.verify(token, `${process.env.JWT_SECRET}`); // Assuming you have JWT_SECRET in your .env file
 
         // Attach the decoded token to the request object
-
+        console.log(decoded);
         req.user = decoded
+        
         next();
     } catch (error) {
         res.status(401).json({ success: false, message: 'Invalid token' });
