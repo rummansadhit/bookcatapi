@@ -23,6 +23,6 @@ app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/profile', profileRoutes);
 
 const PORT = 3000;
-app.listen(PORT, () => {
+app.listen(() => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
