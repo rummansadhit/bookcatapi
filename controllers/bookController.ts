@@ -138,3 +138,23 @@ export const getBookById = async (req: Request, res: Response) => {
       });
     }
   };
+
+// controllers/bookController.ts
+
+import { fetchBooksByCategory } from '../services/bookService';
+
+export const getBooksByCategoryId = async (req, res) => {
+    try {
+        const categoryId = req.params.categoryId;
+        const { page = 1, size = 10 } = req.query;
+
+        const response = await fetchBooksByCategory(categoryId, Number(page), Number(size));
+        res.status(200).json(response);
+    } catch (error) {
+        console.error("Error fetching books by category:", error);
+        res.status(500).json({ success: false, message: 'Internal server error.' });
+    }
+};
+
+
+

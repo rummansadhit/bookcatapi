@@ -133,3 +133,40 @@ export const fetchBooks = async (filters: BookFilters) => {
     throw error;
   }
 }
+
+
+// services/bookService.ts
+
+export const fetchBooksByCategory = async (categoryId: string, page: number = 1, size: number = 10) => {
+  try {
+      const searchFilters = { categoryId };
+
+      const books = await prisma.book.findMany({
+          where: searchFilters,
+          skip: (page - 1) * size,
+          take: size
+      });
+
+      const totalBooks = await prisma.book.count({ where: searchFilters });
+      const totalPages = Math.ceil(totalBooks / size);
+
+      return {
+          success: true,
+          statusCode: 200,
+          message: "Books with associated category data fetched successfully",
+          meta: {
+              page,
+              size,
+              total: totalBooks,
+              totalPage: totalPages
+          },
+          data: books
+      };
+  } catch (error) {
+      console.error("Error fetching books by category:", error);
+      throw error;
+  }
+}
+
+
+
