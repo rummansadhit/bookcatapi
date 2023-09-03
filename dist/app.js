@@ -26,6 +26,6 @@ app.use('/api/v1/categories', categoryRoutes_1.default);
 app.use('/api/v1/orders', orderRoutes_1.default);
 app.use('/api/v1/profile', profileRoutes_1.default);
 const PORT = 3000;
-app.listen(PORT, () => {
+app.listen(() => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
